@@ -1,0 +1,19 @@
+{
+	"name": "XLSX_Cars2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sistemaArchivosLocal",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Hoja1",
+			"location": {
+				"type": "FileServerLocation"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": []
+	}
+}
