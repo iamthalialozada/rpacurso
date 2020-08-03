@@ -8,9 +8,9 @@
 		"annotations": [],
 		"type": "Excel",
 		"typeProperties": {
-			"sheetName": "Hoja1",
 			"location": {
-				"type": "FileServerLocation"
+				"type": "FileServerLocation",
+				"fileName": "CopiaCars2"
 			},
 			"firstRowAsHeader": true
 		},
