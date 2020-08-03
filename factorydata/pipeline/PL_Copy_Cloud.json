@@ -48,13 +48,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "csv_Cars2local",
+						"referenceName": "csv_local_v3",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "csv_copytocloud",
+						"referenceName": "csv_nube_v3",
 						"type": "DatasetReference"
 					}
 				]
