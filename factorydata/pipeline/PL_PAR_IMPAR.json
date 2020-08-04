@@ -34,7 +34,7 @@
 					},
 					"ifTrueActivities": [
 						{
-							"name": "Set variable1",
+							"name": "Set mensaje par",
 							"type": "SetVariable",
 							"dependsOn": [],
 							"userProperties": [],
