@@ -32,6 +32,21 @@
 						"value": "@variables('esPar')",
 						"type": "Expression"
 					},
+					"ifFalseActivities": [
+						{
+							"name": "Set mensaje impar",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "mensaje",
+								"value": {
+									"value": "El número @{pipeline().parameters.num_analizar} es impar",
+									"type": "Expression"
+								}
+							}
+						}
+					],
 					"ifTrueActivities": [
 						{
 							"name": "Set mensaje par",
