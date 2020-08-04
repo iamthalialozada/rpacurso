@@ -1,0 +1,31 @@
+{
+	"name": "PL_PAR_IMPAR",
+	"properties": {
+		"activities": [
+			{
+				"name": "Espar",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "esPar",
+					"value": {
+						"value": "@equals(mod(pipeline().parameters.num_analizar,2),0)",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"num_analizar": {
+				"type": "int"
+			}
+		},
+		"variables": {
+			"esPar": {
+				"type": "Boolean"
+			}
+		},
+		"annotations": []
+	}
+}
