@@ -14,6 +14,40 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "Mensaje",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Espar",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@variables('esPar')",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "mensaje",
+								"value": {
+									"value": "El número @{pipeline().parameters.num_analizar} es par",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
@@ -24,6 +58,9 @@
 		"variables": {
 			"esPar": {
 				"type": "Boolean"
+			},
+			"mensaje": {
+				"type": "String"
 			}
 		},
 		"annotations": []
