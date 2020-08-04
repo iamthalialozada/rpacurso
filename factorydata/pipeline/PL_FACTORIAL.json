@@ -1,0 +1,36 @@
+{
+	"name": "PL_FACTORIAL",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "factorial",
+					"value": ""
+				}
+			}
+		],
+		"parameters": {
+			"num_analizar": {
+				"type": "int",
+				"defaultValue": 1
+			}
+		},
+		"variables": {
+			"factorial": {
+				"type": "String",
+				"defaultValue": "1"
+			},
+			"aux": {
+				"type": "String"
+			},
+			"rangeList": {
+				"type": "Array"
+			}
+		},
+		"annotations": []
+	}
+}
