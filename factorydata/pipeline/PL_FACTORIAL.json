@@ -3,13 +3,16 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Set variable1",
+				"name": "Factorial",
 				"type": "SetVariable",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "factorial",
-					"value": ""
+					"variableName": "rangeList",
+					"value": {
+						"value": "@range(1,pipeline().parameters.num_analizar)",
+						"type": "Expression"
+					}
 				}
 			}
 		],
