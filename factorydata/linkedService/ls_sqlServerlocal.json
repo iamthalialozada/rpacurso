@@ -1,0 +1,17 @@
+{
+	"name": "ls_sqlServerlocal",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=True;data source=BPUIO01609061L;initial catalog=DemoDatabase",
+			"userName": "UIO\\tlozada",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJjODI5MzkwZC1jNzUxLTQ2ZDMtOTAyOS1iMWY2YmZlNjBhNjgiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "ir-rpa-curso",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
