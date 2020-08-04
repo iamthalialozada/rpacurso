@@ -55,7 +55,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "CSV_ResultadoSPTest1",
+						"referenceName": "CSV_ResultadoSaludos",
 						"type": "DatasetReference"
 					}
 				]
