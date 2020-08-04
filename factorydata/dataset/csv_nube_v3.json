@@ -1,0 +1,23 @@
+{
+	"name": "csv_nube_v3",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dlsrpacurso",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "cars3.csv",
+				"container": "acirpacurso"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

@@ -1,0 +1,83 @@
+{
+	"name": "PL_PAR_IMPAR",
+	"properties": {
+		"activities": [
+			{
+				"name": "Espar",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "esPar",
+					"value": {
+						"value": "@equals(mod(pipeline().parameters.num_analizar,2),0)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Mensaje",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Espar",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@variables('esPar')",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Set mensaje impar",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "mensaje",
+								"value": {
+									"value": "El número @{pipeline().parameters.num_analizar} es impar",
+									"type": "Expression"
+								}
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Set mensaje par",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "mensaje",
+								"value": {
+									"value": "El número @{pipeline().parameters.num_analizar} es par",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"num_analizar": {
+				"type": "int"
+			}
+		},
+		"variables": {
+			"esPar": {
+				"type": "Boolean"
+			},
+			"mensaje": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
