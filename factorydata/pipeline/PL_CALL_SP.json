@@ -21,7 +21,10 @@
 						"storedProcedureParameters": {
 							"NOMBRE": {
 								"type": "String",
-								"value": "Thalia Lozada"
+								"value": {
+									"value": "@pipeline().parameters.nombre",
+									"type": "Expression"
+								}
 							}
 						},
 						"queryTimeout": "02:00:00"
@@ -61,6 +64,11 @@
 				]
 			}
 		],
+		"parameters": {
+			"nombre": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
