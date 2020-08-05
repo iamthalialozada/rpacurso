@@ -25,7 +25,8 @@
 				"folderPath": {
 					"value": "Orden/@{dataset().directorio}",
 					"type": "Expression"
-				}
+				},
+				"container": "acingest"
 			},
 			"compressionCodec": "snappy"
 		},
