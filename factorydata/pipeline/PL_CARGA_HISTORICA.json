@@ -18,7 +18,7 @@
 					"source": {
 						"type": "SqlServerSource",
 						"sqlReaderQuery": {
-							"value": "DECLARE @MinDate DATE = '2020-01-01',\n        @MaxDate DATE = '2020-08-04';\n\nSELECT fechaCorte, MONTH(fechaCorte) as mesCorte, YEAR(fechaCorte) as anioCorte\nFROM\n(\n\tSELECT  \n\tTOP (DATEDIFF(MONTH, @MinDate, @MaxDate) + 1)\n\tfechaCorte = EOMONTH(DATEADD(MONTH, ROW_NUMBER() OVER(ORDER BY a.object_id) - 1, @MinDate))\n\tFROM    sys.all_objects a \n\tCROSS JOIN sys.all_objects b\n)fechas\n\nORDER BY fechaCorte;",
+							"value": "DECLARE @MinDate DATE = '@{pipeline().parameters.fechaDesde}',\n        @MaxDate DATE = '@{pipeline().parameters.fechaHasta}';\nSELECT fechaCorte, MONTH(fechaCorte) as mesCorte, YEAR(fechaCorte) as anioCorte\nFROM\n(\n\tSELECT\n\tTOP (DATEDIFF(MONTH, @MinDate, @MaxDate) + 1)\n\tfechaCorte = EOMONTH(DATEADD(MONTH, ROW_NUMBER() OVER(ORDER BY a.object_id) - 1, @MinDate))\n\tFROM    sys.all_objects a\n\tCROSS JOIN sys.all_objects b\n)fechas\nORDER BY fechaCorte;",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00"
@@ -26,10 +26,19 @@
 					"dataset": {
 						"referenceName": "TBL_SQLServer",
 						"type": "DatasetReference"
-					}
+					},
+					"firstRowOnly": false
 				}
 			}
 		],
+		"parameters": {
+			"fechadesde": {
+				"type": "string"
+			},
+			"fechahasta": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
