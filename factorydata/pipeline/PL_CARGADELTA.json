@@ -44,7 +44,17 @@
 				"outputs": [
 					{
 						"referenceName": "Parquet_N",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"directorio": {
+								"value": "@formatDateTime(pipeline().parameters.fechaCorte,'yyyy/MM')",
+								"type": "Expression"
+							},
+							"nombreArchivo": {
+								"value": "@pipeline().parameters.fechaCorte",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
