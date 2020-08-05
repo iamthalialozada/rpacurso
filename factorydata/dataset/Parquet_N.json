@@ -1,0 +1,34 @@
+{
+	"name": "Parquet_N",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dlsrpacurso",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"directorio": {
+				"type": "string"
+			},
+			"nombreArchivo": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "Orden_@{dataset().nombreArchivo}.parquet",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "Orden/@{dataset().directorio}",
+					"type": "Expression"
+				}
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
