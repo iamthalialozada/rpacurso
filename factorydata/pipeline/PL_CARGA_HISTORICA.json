@@ -46,7 +46,29 @@
 					"items": {
 						"value": "@array(activity('Lookup1').output.value)",
 						"type": "Expression"
-					}
+					},
+					"isSequential": false,
+					"activities": [
+						{
+							"name": "PL_CARGADELTA",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "PL_CARGADELTA",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"fechaCorte": {
+										"value": "@item().fechaCorte",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
 				}
 			}
 		],
