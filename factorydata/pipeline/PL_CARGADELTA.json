@@ -1,0 +1,73 @@
+{
+	"name": "PL_CARGADELTA",
+	"properties": {
+		"activities": [
+			{
+				"name": "Parquet",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "SELECT [akeed_order_id]\n      ,[customer_id]\n      ,[item_count]\n      ,[grand_total]\n      ,[payment_mode]\n      ,[promo_code]\n      ,[vendor_discount_amount]\n      ,[promo_code_discount_percentage]\n      ,[is_favorite]\n      ,[is_rated]\n      ,[vendor_rating]\n      ,[driver_rating]\n      ,[deliverydistance]\n      ,[preparationtime]\n      ,[delivery_time]\n      ,[order_accepted_time]\n      ,[driver_accepted_time]\n      ,[ready_for_pickup_time]\n      ,[picked_up_time]\n      ,[delivered_time]\n      ,[delivery_date]\n      ,[vendor_id]\n      ,[created_at]\n      ,[location_number]\n      ,[location_type]\n      ,[cid_x_loc_num_x_vendor]\n  FROM [dbo].[orden]\n  WHERE\n  EOMONTH([created_at])=EOMONTH('@{pipeline().parameters.fechaCorte}')",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "TBL_SQLServer",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Parquet_N",
+						"type": "DatasetReference",
+						"parameters": {
+							"directorio": {
+								"value": "@formatDateTime(pipeline().parameters.fechaCorte,'yyyy/MM')",
+								"type": "Expression"
+							},
+							"nombreArchivo": {
+								"value": "@pipeline().parameters.fechaCorte",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"fechaCorte": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	}
+}

@@ -1,0 +1,12 @@
+{
+	"name": "TBL_SQLServer",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sqlServerlocal",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": []
+	}
+}
