@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "dfrpacurso"
+		},
+		"ls_AzureDatabricks_accessToken": {
+			"value": ""
+		},
+		"ls_dlsrpacurso_connectionString": {
+			"value": ""
+		},
+		"ls_sistemaArchivosLocal_password": {
+			"value": ""
+		},
+		"ls_sqlServerlocal_connectionString": {
+			"value": ""
+		},
+		"ls_sqlServerlocal_password": {
+			"value": ""
+		},
+		"kv_rpacurso_properties_typeProperties_baseUrl": {
+			"value": "https://kv-rpacurso.vault.azure.net/"
+		},
+		"ls_sistemaArchivosLocal_properties_typeProperties_host": {
+			"value": "D:\\Data_Factory"
+		},
+		"ls_sistemaArchivosLocal_properties_typeProperties_userId": {
+			"value": "uio\\tlozada"
+		},
+		"ls_sqlServerlocal_properties_typeProperties_userName": {
+			"value": "UIO\\tlozada"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
