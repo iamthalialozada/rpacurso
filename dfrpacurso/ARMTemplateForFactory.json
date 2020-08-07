@@ -23,10 +23,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_sqlServerlocal'"
 		},
-		"ls_sqlServerlocal_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'ls_sqlServerlocal'"
-		},
 		"kv_rpacurso_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://kv-rpacurso.vault.azure.net/"
@@ -42,6 +38,10 @@
 		"ls_sqlServerlocal_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "UIO\\tlozada"
+		},
+		"sc_calendarizado_properties_PL_PAR_IMPAR_parameters_num_analizar": {
+			"type": "int",
+			"defaultValue": 10
 		}
 	},
 	"variables": {
@@ -1086,8 +1086,12 @@
 					"connectionString": "[parameters('ls_sqlServerlocal_connectionString')]",
 					"userName": "[parameters('ls_sqlServerlocal_properties_typeProperties_userName')]",
 					"password": {
-						"type": "SecureString",
-						"value": "[parameters('ls_sqlServerlocal_password')]"
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "kv_rpacurso",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "uio-tlozada"
 					}
 				},
 				"connectVia": {
@@ -1096,7 +1100,41 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/ir-rpa-curso')]"
+				"[concat(variables('factoryId'), '/integrationRuntimes/ir-rpa-curso')]",
+				"[concat(variables('factoryId'), '/linkedServices/kv_rpacurso')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sc_calendarizado')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "PL_PAR_IMPAR",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"num_analizar": "[parameters('sc_calendarizado_properties_PL_PAR_IMPAR_parameters_num_analizar')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 1,
+						"startTime": "2020-08-07T21:48:00.000Z",
+						"endTime": "2020-08-08T21:45:52.998Z",
+						"timeZone": "UTC"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_PAR_IMPAR')]"
 			]
 		},
 		{

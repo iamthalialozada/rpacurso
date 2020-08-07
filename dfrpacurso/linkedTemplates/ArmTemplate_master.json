@@ -23,10 +23,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_sqlServerlocal'"
 		},
-		"ls_sqlServerlocal_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'ls_sqlServerlocal'"
-		},
 		"kv_rpacurso_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://kv-rpacurso.vault.azure.net/"
@@ -42,6 +38,10 @@
 		"ls_sqlServerlocal_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "UIO\\tlozada"
+		},
+		"sc_calendarizado_properties_PL_PAR_IMPAR_parameters_num_analizar": {
+			"type": "int",
+			"defaultValue": 10
 		},
 		"containerUri": {
 			"type": "string",
@@ -82,9 +82,6 @@
 					"ls_sqlServerlocal_connectionString": {
 						"value": "[parameters('ls_sqlServerlocal_connectionString')]"
 					},
-					"ls_sqlServerlocal_password": {
-						"value": "[parameters('ls_sqlServerlocal_password')]"
-					},
 					"kv_rpacurso_properties_typeProperties_baseUrl": {
 						"value": "[parameters('kv_rpacurso_properties_typeProperties_baseUrl')]"
 					},
@@ -96,6 +93,9 @@
 					},
 					"ls_sqlServerlocal_properties_typeProperties_userName": {
 						"value": "[parameters('ls_sqlServerlocal_properties_typeProperties_userName')]"
+					},
+					"sc_calendarizado_properties_PL_PAR_IMPAR_parameters_num_analizar": {
+						"value": "[parameters('sc_calendarizado_properties_PL_PAR_IMPAR_parameters_num_analizar')]"
 					}
 				}
 			},

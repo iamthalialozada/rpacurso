@@ -17,9 +17,6 @@
 		"ls_sqlServerlocal_connectionString": {
 			"value": ""
 		},
-		"ls_sqlServerlocal_password": {
-			"value": ""
-		},
 		"kv_rpacurso_properties_typeProperties_baseUrl": {
 			"value": "https://kv-rpacurso.vault.azure.net/"
 		},
@@ -31,6 +28,9 @@
 		},
 		"ls_sqlServerlocal_properties_typeProperties_userName": {
 			"value": "UIO\\tlozada"
+		},
+		"sc_calendarizado_properties_PL_PAR_IMPAR_parameters_num_analizar": {
+			"value": 10
 		}
 	}
 }
