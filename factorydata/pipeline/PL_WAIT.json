@@ -10,8 +10,19 @@
 				"typeProperties": {
 					"waitTimeInSeconds": 120
 				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": []
 			}
 		],
+		"variables": {
+			"X": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
