@@ -1,0 +1,125 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "dfrpacurso"
+		},
+		"ls_AzureDatabricks_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'ls_AzureDatabricks'"
+		},
+		"ls_dlsrpacurso_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_dlsrpacurso'"
+		},
+		"ls_sistemaArchivosLocal_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_sistemaArchivosLocal'"
+		},
+		"ls_sqlServerlocal_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_sqlServerlocal'"
+		},
+		"kv_rpacurso_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kv-rpacurso.vault.azure.net/"
+		},
+		"ls_sistemaArchivosLocal_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "D:\\Data_Factory"
+		},
+		"ls_sistemaArchivosLocal_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "uio\\tlozada"
+		},
+		"ls_sqlServerlocal_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "UIO\\tlozada"
+		},
+		"sc_calendarizado_properties_PL_PAR_IMPAR_parameters_num_analizar": {
+			"type": "int",
+			"defaultValue": 10
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"ls_AzureDatabricks_accessToken": {
+						"value": "[parameters('ls_AzureDatabricks_accessToken')]"
+					},
+					"ls_dlsrpacurso_connectionString": {
+						"value": "[parameters('ls_dlsrpacurso_connectionString')]"
+					},
+					"ls_sistemaArchivosLocal_password": {
+						"value": "[parameters('ls_sistemaArchivosLocal_password')]"
+					},
+					"ls_sqlServerlocal_connectionString": {
+						"value": "[parameters('ls_sqlServerlocal_connectionString')]"
+					},
+					"kv_rpacurso_properties_typeProperties_baseUrl": {
+						"value": "[parameters('kv_rpacurso_properties_typeProperties_baseUrl')]"
+					},
+					"ls_sistemaArchivosLocal_properties_typeProperties_host": {
+						"value": "[parameters('ls_sistemaArchivosLocal_properties_typeProperties_host')]"
+					},
+					"ls_sistemaArchivosLocal_properties_typeProperties_userId": {
+						"value": "[parameters('ls_sistemaArchivosLocal_properties_typeProperties_userId')]"
+					},
+					"ls_sqlServerlocal_properties_typeProperties_userName": {
+						"value": "[parameters('ls_sqlServerlocal_properties_typeProperties_userName')]"
+					},
+					"sc_calendarizado_properties_PL_PAR_IMPAR_parameters_num_analizar": {
+						"value": "[parameters('sc_calendarizado_properties_PL_PAR_IMPAR_parameters_num_analizar')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'ArmTemplate_0')]"
+			]
+		}
+	]
+}
