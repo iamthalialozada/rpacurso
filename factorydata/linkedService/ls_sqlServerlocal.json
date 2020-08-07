@@ -5,9 +5,16 @@
 		"annotations": [],
 		"type": "SqlServer",
 		"typeProperties": {
-			"connectionString": "integrated security=True;data source=BPUIO01609061L;initial catalog=DemoDatabase",
+			"connectionString": "Integrated Security=True;Data Source=BPUIO01609061L;Initial Catalog=DemoDatabase",
 			"userName": "UIO\\tlozada",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJjODI5MzkwZC1jNzUxLTQ2ZDMtOTAyOS1iMWY2YmZlNjBhNjgiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "kv_rpacurso",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "uio-tlozada"
+			}
 		},
 		"connectVia": {
 			"referenceName": "ir-rpa-curso",
