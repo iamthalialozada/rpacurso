@@ -1,0 +1,31 @@
+{
+	"name": "csv_aci_storage",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "az_curso_ev",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"locationtype": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Orden.csv",
+				"folderPath": {
+					"value": "Orden/@{dataset().locationtype}",
+					"type": "Expression"
+				},
+				"container": "aci-tlozada"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
