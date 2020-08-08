@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_sqlServerlocal'"
 		},
+		"az_curso_ev_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'az_curso_ev'"
+		},
 		"kv_rpacurso_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://kv-rpacurso.vault.azure.net/"
@@ -81,6 +85,9 @@
 					},
 					"ls_sqlServerlocal_connectionString": {
 						"value": "[parameters('ls_sqlServerlocal_connectionString')]"
+					},
+					"az_curso_ev_connectionString": {
+						"value": "[parameters('az_curso_ev_connectionString')]"
 					},
 					"kv_rpacurso_properties_typeProperties_baseUrl": {
 						"value": "[parameters('kv_rpacurso_properties_typeProperties_baseUrl')]"

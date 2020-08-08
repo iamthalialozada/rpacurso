@@ -17,6 +17,9 @@
 		"ls_sqlServerlocal_connectionString": {
 			"value": ""
 		},
+		"az_curso_ev_connectionString": {
+			"value": ""
+		},
 		"kv_rpacurso_properties_typeProperties_baseUrl": {
 			"value": "https://kv-rpacurso.vault.azure.net/"
 		},

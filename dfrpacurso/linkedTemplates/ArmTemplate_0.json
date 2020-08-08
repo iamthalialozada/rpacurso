@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_sqlServerlocal'"
 		},
+		"az_curso_ev_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'az_curso_ev'"
+		},
 		"kv_rpacurso_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://kv-rpacurso.vault.azure.net/"
@@ -705,6 +709,25 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/az_curso_ev')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('az_curso_ev_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "ir-rpa-curso",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/ir-rpa-curso')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/TBL_SQLServer')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -740,32 +763,6 @@
 						"fileName": "CopiaCars2"
 					},
 					"firstRowAsHeader": true
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_sistemaArchivosLocal')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/csv_Cars2local')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_sistemaArchivosLocal",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "FileServerLocation"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
 				},
 				"schema": []
 			},
