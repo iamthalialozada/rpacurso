@@ -1,5 +1,5 @@
 {
-	"name": "sc_curso_examen",
+	"name": "sc_curso_examen_2",
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
@@ -10,7 +10,7 @@
 					"type": "PipelineReference"
 				},
 				"parameters": {
-					"locationtype": "Work"
+					"locationtype": "Other"
 				}
 			}
 		],
@@ -19,8 +19,7 @@
 			"recurrence": {
 				"frequency": "Minute",
 				"interval": 1,
-				"startTime": "2020-08-08T23:50:00.000Z",
-				"endTime": "2020-08-08T23:50:00.000Z",
+				"startTime": "2020-08-08T23:53:00.000Z",
 				"timeZone": "UTC"
 			}
 		}
