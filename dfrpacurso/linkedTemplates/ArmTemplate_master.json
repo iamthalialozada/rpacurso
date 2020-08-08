@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "dfrpacurso"
 		},
+		"az_curso_ev_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'az_curso_ev'"
+		},
 		"ls_AzureDatabricks_accessToken": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accessToken' of 'ls_AzureDatabricks'"
@@ -22,10 +26,6 @@
 		"ls_sqlServerlocal_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_sqlServerlocal'"
-		},
-		"az_curso_ev_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'az_curso_ev'"
 		},
 		"kv_rpacurso_properties_typeProperties_baseUrl": {
 			"type": "string",
@@ -46,6 +46,10 @@
 		"sc_calendarizado_properties_PL_PAR_IMPAR_parameters_num_analizar": {
 			"type": "int",
 			"defaultValue": 10
+		},
+		"sc_curso_examen_properties_PL_CARGA_COMPLETA_ORDEN_parameters_locationtype": {
+			"type": "string",
+			"defaultValue": "Work"
 		},
 		"containerUri": {
 			"type": "string",
@@ -80,14 +84,14 @@
 					"ls_dlsrpacurso_connectionString": {
 						"value": "[parameters('ls_dlsrpacurso_connectionString')]"
 					},
+					"az_curso_ev_connectionString": {
+						"value": "[parameters('az_curso_ev_connectionString')]"
+					},
 					"ls_sistemaArchivosLocal_password": {
 						"value": "[parameters('ls_sistemaArchivosLocal_password')]"
 					},
 					"ls_sqlServerlocal_connectionString": {
 						"value": "[parameters('ls_sqlServerlocal_connectionString')]"
-					},
-					"az_curso_ev_connectionString": {
-						"value": "[parameters('az_curso_ev_connectionString')]"
 					},
 					"kv_rpacurso_properties_typeProperties_baseUrl": {
 						"value": "[parameters('kv_rpacurso_properties_typeProperties_baseUrl')]"
@@ -121,6 +125,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"sc_curso_examen_properties_PL_CARGA_COMPLETA_ORDEN_parameters_locationtype": {
+						"value": "[parameters('sc_curso_examen_properties_PL_CARGA_COMPLETA_ORDEN_parameters_locationtype')]"
 					}
 				}
 			},

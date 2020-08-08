@@ -6,6 +6,10 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "dfrpacurso"
+		},
+		"sc_curso_examen_properties_PL_CARGA_COMPLETA_ORDEN_parameters_locationtype": {
+			"type": "string",
+			"defaultValue": "Work"
 		}
 	},
 	"variables": {
@@ -30,6 +34,40 @@
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
 					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/csv_aci_storage')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "az_curso_ev",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"locationtype": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "Orden.csv",
+						"folderPath": {
+							"value": "Orden/@{dataset().locationtype}",
+							"type": "Expression"
+						},
+						"container": "aci-tlozada"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
 					"quoteChar": "\""
 				},
 				"schema": []
@@ -138,40 +176,6 @@
 						"type": "String"
 					}
 				]
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/csv_aci_storage')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "az_curso_ev",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"locationtype": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "Orden.csv",
-						"folderPath": {
-							"value": "Orden/@{dataset().locationtype}",
-							"type": "Expression"
-						},
-						"container": "aci-tlozada"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"quoteChar": "\""
-				},
-				"schema": []
 			},
 			"dependsOn": []
 		},
@@ -743,6 +747,39 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/PL_CARGADELTA')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sc_curso_examen')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "PL_CARGA_COMPLETA_ORDEN",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"locationtype": "[parameters('sc_curso_examen_properties_PL_CARGA_COMPLETA_ORDEN_parameters_locationtype')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 1,
+						"startTime": "2020-08-08T23:45:00.000Z",
+						"endTime": "2020-08-08T23:45:00.000Z",
+						"timeZone": "UTC"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_CARGA_COMPLETA_ORDEN')]"
 			]
 		}
 	]

@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_dlsrpacurso'"
 		},
+		"az_curso_ev_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'az_curso_ev'"
+		},
 		"ls_sistemaArchivosLocal_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ls_sistemaArchivosLocal'"
@@ -22,10 +26,6 @@
 		"ls_sqlServerlocal_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_sqlServerlocal'"
-		},
-		"az_curso_ev_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'az_curso_ev'"
 		},
 		"kv_rpacurso_properties_typeProperties_baseUrl": {
 			"type": "string",
@@ -592,6 +592,25 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/az_curso_ev')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('az_curso_ev_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "ir-rpa-curso",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/ir-rpa-curso')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ls_sistemaArchivosLocal')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -706,25 +725,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/PL_WAIT')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/az_curso_ev')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('az_curso_ev_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "ir-rpa-curso",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/ir-rpa-curso')]"
 			]
 		},
 		{

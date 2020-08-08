@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "dfrpacurso"
 		},
+		"az_curso_ev_connectionString": {
+			"value": ""
+		},
 		"ls_AzureDatabricks_accessToken": {
 			"value": ""
 		},
@@ -15,9 +18,6 @@
 			"value": ""
 		},
 		"ls_sqlServerlocal_connectionString": {
-			"value": ""
-		},
-		"az_curso_ev_connectionString": {
 			"value": ""
 		},
 		"kv_rpacurso_properties_typeProperties_baseUrl": {
@@ -34,6 +34,9 @@
 		},
 		"sc_calendarizado_properties_PL_PAR_IMPAR_parameters_num_analizar": {
 			"value": 10
+		},
+		"sc_curso_examen_properties_PL_CARGA_COMPLETA_ORDEN_parameters_locationtype": {
+			"value": "Work"
 		},
 		"containerUri": {
 			"value": ""
