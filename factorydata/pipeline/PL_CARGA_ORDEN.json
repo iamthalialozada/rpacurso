@@ -54,7 +54,13 @@
 				"outputs": [
 					{
 						"referenceName": "csv_aci_storage",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"locationtype": {
+								"value": "@pipeline().parameters.locationtype",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
