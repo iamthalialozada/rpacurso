@@ -27,7 +27,7 @@
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "FileServerWriteSettings"
+							"type": "AzureBlobStorageWriteSettings"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
@@ -53,14 +53,8 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "csv_locationtype",
-						"type": "DatasetReference",
-						"parameters": {
-							"locationtype": {
-								"value": "@pipeline().parameters.locationtype",
-								"type": "Expression"
-							}
-						}
+						"referenceName": "csv_aci_storage",
+						"type": "DatasetReference"
 					}
 				]
 			}
