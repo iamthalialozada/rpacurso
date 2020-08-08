@@ -18,7 +18,7 @@
 					"source": {
 						"type": "SqlServerSource",
 						"sqlReaderQuery": {
-							"value": "DECLARE @location_type VARCHAR(50) = '@{pipeline().parameters.locationtype}'   ;\nSELECT *\nFROM orden\nWHERE location_type = @location_type",
+							"value": "SELECT distinct location_type\n  FROM [DemoDatabase].[dbo].[orden]",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
