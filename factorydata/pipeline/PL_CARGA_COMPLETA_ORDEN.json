@@ -48,6 +48,7 @@
 						"value": "@array(activity('Lookup1').output.value)",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "PL_CARGA_ORDEN",
