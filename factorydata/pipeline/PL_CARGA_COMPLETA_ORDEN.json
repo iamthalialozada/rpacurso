@@ -63,7 +63,7 @@
 								"waitOnCompletion": true,
 								"parameters": {
 									"locationtype": {
-										"value": "@item().locationtype",
+										"value": "@pipeline().parameters.locationtype",
 										"type": "Expression"
 									}
 								}
