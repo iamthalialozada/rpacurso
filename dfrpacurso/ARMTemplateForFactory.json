@@ -213,6 +213,99 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PL_CARGA_COMPLETA_ORDEN')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Lookup1",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderQuery": {
+									"value": "SELECT distinct location_type\n  FROM [DemoDatabase].[dbo].[orden]",
+									"type": "Expression"
+								},
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "TBL_SQLServer",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@array(activity('Lookup1').output.value)",
+								"type": "Expression"
+							},
+							"isSequential": false,
+							"activities": [
+								{
+									"name": "PL_CARGA_ORDEN",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "PL_CARGA_ORDEN",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"locationtype": {
+												"value": "@pipeline().parameters.locationtype",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						}
+					}
+				],
+				"parameters": {
+					"locationtype": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "Curso_HandyTec/Ejercicio"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/TBL_SQLServer')]",
+				"[concat(variables('factoryId'), '/pipelines/PL_CARGA_ORDEN')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PL_CARGA_HISTORICA')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -234,7 +327,7 @@
 							"source": {
 								"type": "SqlServerSource",
 								"sqlReaderQuery": {
-									"value": "DECLARE @MinDate DATE = '@{pipeline().parameters.fechaDesde}',\n        @MaxDate DATE = '@{pipeline().parameters.fechaHasta}';\nSELECT fechaCorte, MONTH(fechaCorte) as mesCorte, YEAR(fechaCorte) as anioCorte\nFROM\n(\n\tSELECT\n\tTOP (DATEDIFF(MONTH, @MinDate, @MaxDate) + 1)\n\tfechaCorte = EOMONTH(DATEADD(MONTH, ROW_NUMBER() OVER(ORDER BY a.object_id) - 1, @MinDate))\n\tFROM    sys.all_objects a\n\tCROSS JOIN sys.all_objects b\n)fechas\nORDER BY fechaCorte;",
+									"value": "DECLARE @location_type VARCHAR(50) = '@{pipeline().parameters.fechaHasta}';\nSELECT *\nFROM orden\nWHERE location_type = @location_type",
 									"type": "Expression"
 								},
 								"queryTimeout": "02:00:00",
@@ -303,6 +396,91 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/TBL_SQLServer')]",
 				"[concat(variables('factoryId'), '/pipelines/PL_CARGADELTA')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PL_CARGA_ORDEN')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "DataCopy",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderQuery": {
+									"value": "SELECT [akeed_order_id]\n      ,[customer_id]\n      ,[item_count]\n      ,[grand_total]\n      ,[payment_mode]\n      ,[promo_code]\n      ,[vendor_discount_amount]\n      ,[promo_code_discount_percentage]\n      ,[is_favorite]\n      ,[is_rated]\n      ,[vendor_rating]\n      ,[driver_rating]\n      ,[deliverydistance]\n      ,[preparationtime]\n      ,[delivery_time]\n      ,[order_accepted_time]\n      ,[driver_accepted_time]\n      ,[ready_for_pickup_time]\n      ,[picked_up_time]\n      ,[delivered_time]\n      ,[delivery_date]\n      ,[vendor_id]\n      ,[created_at]\n      ,[location_number]\n      ,[location_type]\n      ,[cid_x_loc_num_x_vendor]\n  FROM [DemoDatabase].[dbo].[orden]\n  WHERE location_type =  '@{pipeline().parameters.locationtype}'",
+									"type": "Expression"
+								},
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TBL_SQLServer",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "csv_locationtype",
+								"type": "DatasetReference",
+								"parameters": {
+									"locationtype": {
+										"value": "@pipeline().parameters.locationtype",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					}
+				],
+				"parameters": {
+					"locationtype": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "Curso_HandyTec/Ejercicio"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/TBL_SQLServer')]",
+				"[concat(variables('factoryId'), '/datasets/csv_locationtype')]"
 			]
 		},
 		{
@@ -1013,6 +1191,70 @@
 						"type": "String"
 					},
 					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sistemaArchivosLocal')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/csv_locationtype')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sistemaArchivosLocal",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"locationtype": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": {
+							"value": "Orden.csv",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "Orden/@{dataset().locationtype}",
+							"type": "Expression"
+						}
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Make",
+						"type": "String"
+					},
+					{
+						"name": "Model",
+						"type": "String"
+					},
+					{
+						"name": "Type",
+						"type": "String"
+					},
+					{
+						"name": "Origin",
+						"type": "String"
+					},
+					{
+						"name": "DriveTrain",
+						"type": "String"
+					},
+					{
+						"name": "Length",
 						"type": "String"
 					}
 				]
