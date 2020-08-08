@@ -1,0 +1,59 @@
+{
+	"name": "csv_locationtype",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sistemaArchivosLocal",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"locationtype": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": {
+					"value": "Orden.csv",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "Orden/@{dataset().locationtype}",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Make",
+				"type": "String"
+			},
+			{
+				"name": "Model",
+				"type": "String"
+			},
+			{
+				"name": "Type",
+				"type": "String"
+			},
+			{
+				"name": "Origin",
+				"type": "String"
+			},
+			{
+				"name": "DriveTrain",
+				"type": "String"
+			},
+			{
+				"name": "Length",
+				"type": "String"
+			}
+		]
+	}
+}
