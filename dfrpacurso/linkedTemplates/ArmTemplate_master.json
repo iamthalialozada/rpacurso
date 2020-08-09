@@ -47,9 +47,9 @@
 			"type": "int",
 			"defaultValue": 10
 		},
-		"sc_curso_examen_properties_PL_CARGA_COMPLETA_ORDEN_parameters_locationtype": {
+		"sc_curso_examen_2_properties_PL_CARGA_COMPLETA_ORDEN_parameters_locationtype": {
 			"type": "string",
-			"defaultValue": "Work"
+			"defaultValue": "Other"
 		},
 		"containerUri": {
 			"type": "string",
@@ -126,8 +126,8 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"sc_curso_examen_properties_PL_CARGA_COMPLETA_ORDEN_parameters_locationtype": {
-						"value": "[parameters('sc_curso_examen_properties_PL_CARGA_COMPLETA_ORDEN_parameters_locationtype')]"
+					"sc_curso_examen_2_properties_PL_CARGA_COMPLETA_ORDEN_parameters_locationtype": {
+						"value": "[parameters('sc_curso_examen_2_properties_PL_CARGA_COMPLETA_ORDEN_parameters_locationtype')]"
 					}
 				}
 			},

@@ -669,7 +669,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Stopped",
+				"runtimeState": "Started",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -686,45 +686,13 @@
 					"recurrence": {
 						"frequency": "Minute",
 						"interval": 1,
-						"startTime": "2020-08-07T21:50:00.000Z",
-						"endTime": "2020-08-08T21:50:00.998Z",
+						"startTime": "2020-08-08T23:56:00.000Z",
 						"timeZone": "UTC"
 					}
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/PL_PAR_IMPAR')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/sc_wait')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "PL_WAIT",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 1,
-						"startTime": "2020-08-07T22:04:00.000Z",
-						"endTime": "2020-08-08T22:04:00.000Z",
-						"timeZone": "UTC"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PL_WAIT')]"
 			]
 		},
 		{
@@ -763,6 +731,32 @@
 						"fileName": "CopiaCars2"
 					},
 					"firstRowAsHeader": true
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sistemaArchivosLocal')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/csv_Cars2local')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sistemaArchivosLocal",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
 				},
 				"schema": []
 			},

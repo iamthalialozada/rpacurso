@@ -35,8 +35,8 @@
 		"sc_calendarizado_properties_PL_PAR_IMPAR_parameters_num_analizar": {
 			"value": 10
 		},
-		"sc_curso_examen_properties_PL_CARGA_COMPLETA_ORDEN_parameters_locationtype": {
-			"value": "Work"
+		"sc_curso_examen_2_properties_PL_CARGA_COMPLETA_ORDEN_parameters_locationtype": {
+			"value": "Other"
 		},
 		"containerUri": {
 			"value": ""
